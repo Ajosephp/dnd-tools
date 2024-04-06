@@ -1,8 +1,6 @@
-// pages/character-generator.js
+// pages/character-generator
 
-import React from 'react';
-
-const CharacterGenerator = () => {
+export default function CharacterGeneratorPage() {
   return (
     <>
       <h1>Character Generator</h1>
@@ -10,5 +8,3 @@ const CharacterGenerator = () => {
     </>
   );
 };
-
-export default CharacterGenerator;
