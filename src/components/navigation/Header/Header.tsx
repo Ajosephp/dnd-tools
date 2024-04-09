@@ -4,8 +4,9 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { NavMenuIcon } from "../NavMenuIcon";
-import { MobileMenu } from "../MobileMenu";
+import { MobileMenu } from "../MobileMenu/MobileMenu";
 import { DesktopMenu } from "../DesktopMenu";
+import { ModeToggle } from "@/components/ui/mode-toggle";
 
 
 interface HeaderProps {
@@ -41,7 +42,8 @@ interface HeaderProps {
       {isMobileView ? 
         (isMenuOpen && <MobileMenu isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />) :
           <DesktopMenu />}
-
+      
+      <ModeToggle />
     </header>
   )
 };

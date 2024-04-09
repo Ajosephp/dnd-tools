@@ -1,6 +1,6 @@
 // MobileMenu Component
-
-import { NavItem } from "./NavItem";
+import styles from './MobileMenu.module.css';
+import { NavItem } from "../NavItem";
 
 interface MobileMenuProps {
     isMenuOpen: boolean;
@@ -11,12 +11,11 @@ interface MobileMenuProps {
 export const MobileMenu: React.FC<MobileMenuProps> = ({ isMenuOpen, setIsMenuOpen, className }) => {
     if (!isMenuOpen) return null;
 
-    const navClass = `lg:hidden block absolute top-16 w-full left-0 right-0 z-20 bg-white ${className || ''}`;
-    
     return (
         <>
-        <div className="fixed inset-0 bg-black bg-opacity-10 z-10" onClick={() => setIsMenuOpen(false)}></div>
-        <nav className={navClass}>
+            <div className="fixed inset-0 z-10" onClick={() => setIsMenuOpen(false)}></div>
+            {/* Tailwind's dark mode prefix will handle the theme switching */}
+            <nav className={styles.nav}>
             <ul className="text-center text-md font-medium">
                 <NavItem href="/" 
                          onClick={() => setIsMenuOpen(false)}
