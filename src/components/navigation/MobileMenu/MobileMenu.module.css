@@ -1,5 +1,5 @@
-.nav {
-    background-color: hsl(var(--background)); /* Use the variable for background */
-    color: hsl(var(--foreground)); /* Use the variable for text color */
-    @apply lg:hidden block absolute top-16 w-full left-0 right-0 z-20; /* Apply Tailwind utilities */
-  }
+/* MobileMenu Component */
+
+.dropdownMenu {
+  margin-top: 18px;
+}
