@@ -56,7 +56,7 @@ export function raceASIParser(input: string | undefined): string {
 
 
 /*
---- Dice Roll Function ---
+--- Dice Roll Functions ---
  */
 export function rollD6(numOfD6 : number) {
   
@@ -69,4 +69,21 @@ export function rollD6(numOfD6 : number) {
   return abilityScoreArray;
 }
 
+export function generateAttributeNumber() {
+    var diceRolls = rollD6(4);
+    // Sort the array and remove the lowest die roll
+    diceRolls.sort();
+    diceRolls.shift(); // Removes the first element, which is the lowest due to sort
+    // Sum the remaining dice rolls
+    return diceRolls.reduce((a, b) => a + b, 0);
+}
 
+export function generateAllAttributes() {
+  let attributes = [];
+  for (let i = 0; i < 6; i++) { // 6 attributes
+      let attribute = generateAttributeNumber();
+      attribute = attribute < 8 ? 8 : attribute; // Ensure no attribute is below 8
+      attributes.push(attribute);
+  }
+  return attributes;
+}

@@ -5,36 +5,62 @@ import { fetchDataFromOpen5e } from './open5eApi.server';
 import { Class, Race } from '../app/types';
 
 interface StoreState {
+    // CLASSES
     classes: Class[];
-    races: Race[];
     selectedClass: Class | null;
-    selectedRace: Race | null;
     setClasses: (classes: Class[]) => void;
     setSelectedClass: (selectedClass: Class | null) => void;
-    setSelectedRace: (selectedRace: Race | null) => void;
     fetchClasses: () => Promise<void>;
+
+    // RACES
+    races: Race[];
+    selectedRace: Race | null;
+    setSelectedRace: (selectedRace: Race | null) => void;
     fetchRaces: () => Promise<void>;
+    
+    // ATTRIBUTES
+    attributes: number[];
+    setAttributes: (newAttributes: number[] | undefined) => void;
+    generateAttributes: () => void;
 }
 
 const useStore = create<StoreState>((set) => ({
     classes: [],
-    races: [],
     selectedClass: null,
-    selectedRace: null,
-    
     setClasses: (classes) => set({ classes }),
     setSelectedClass: (selectedClass) => set({ selectedClass }),
+
+    races: [],
+    selectedRace: null,
     setSelectedRace: (selectedRace) => set({ selectedRace }),
+
+    attributes: [],
   
     fetchClasses: async () => {
-      const data = await fetchDataFromOpen5e('classes');
-      set({ classes: data.results });
+      try {
+          const data = await fetchDataFromOpen5e('classes');
+          set({ classes: data.results });
+      } catch (error) {
+          console.error('Failed to fetch classes in Zustand Store', error);
+      }
     },
   
     fetchRaces: async () => {
-      const data = await fetchDataFromOpen5e('races');
-      set({ races: data.results });
+      try {
+          const data = await fetchDataFromOpen5e('races');
+          set({ races: data.results });
+      } catch (error) {
+          console.error('Failed to fetch races in Zustand Store', error);
+      }
     },
+
+    setAttributes: (newAttributes) => set({ attributes: newAttributes }),
+    generateAttributes: () => {
+        const { generateAllAttributes } = require('./utils'); // Delayed import to avoid circular dependencies
+        const newAttributes = generateAllAttributes();
+        set({ attributes: newAttributes });
+    }
+    
   }));
 
 export default useStore;

@@ -5,8 +5,6 @@ import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@
 import React, { useEffect } from 'react';
 import useStore from '@/lib/store';
 
-import RaceSelector from './RaceSelector';
-
 
 export default function ClassSelector() {
 
@@ -18,9 +16,9 @@ export default function ClassSelector() {
         
     }, [fetchClasses]);
 
-    useEffect(() => {
-        console.log("Current selected class:", selectedClass); // Debug current selected class state
-    }, [selectedClass]); // Add selectedClass as a dependency to log when it changes
+    // useEffect(() => {
+    //     console.log("Current selected class:", selectedClass); // Debug current selected class state
+    // }, [selectedClass]); // Add selectedClass as a dependency to log when it changes
     
 
     const handleValueChange = (slug: string) => {
@@ -43,7 +41,6 @@ export default function ClassSelector() {
                 </SelectTrigger>
                 <SelectContent>
                 {classes.map((item) => {
-
                     return (
                         <SelectItem 
                             key={item.slug}
@@ -54,6 +51,7 @@ export default function ClassSelector() {
                 })}
                 </SelectContent>
             </Select>
+            
             {selectedClass ? (
                 <div className="description">
                     <p className='mt-2'>Health at First Level: {selectedClass.hp_at_1st_level}</p>
@@ -61,8 +59,7 @@ export default function ClassSelector() {
             ) : (
                 <p className='mt-2'>No class selected or class has no description.</p> // Debug no selection
             )}
-            
-            <RaceSelector selectedClass={selectedClass} />
         </div>
+        
     );
 };

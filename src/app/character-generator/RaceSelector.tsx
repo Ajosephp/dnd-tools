@@ -4,29 +4,19 @@
 import React, { useState, useEffect } from 'react';
 import useStore from '@/lib/store';
 
-// Classes and Interfaces
-import { Class } from '../types';
-
 // Utility Functions
 import { randomize, raceASIParser } from '@/lib/utils';
 
-interface RaceSelectorProps {
-    selectedClass: Class | null;  // Explicitly type selectedClass
-}
-
-export default function RaceSelector( {selectedClass}: RaceSelectorProps ) {
-    
-
-    const { races, selectedRace, setSelectedRace, fetchRaces } = useStore();
-
+export default function RaceSelector() {
+    const { races, selectedRace, setSelectedRace, fetchRaces, selectedClass } = useStore(); // Access selectedClass directly from the store
 
     useEffect(() => {
         // Fetch the data asynchronously and update the state
         fetchRaces();
-        
     }, [fetchRaces]);
 
-    useEffect( () => {
+    useEffect(() => {
+        // Automatically set a random race when selectedClass changes and races are available
         if (selectedClass && races.length > 0) {
             setSelectedRace(randomize(races));
         }
@@ -39,7 +29,7 @@ export default function RaceSelector( {selectedClass}: RaceSelectorProps ) {
                     <p>Race Selected: {selectedRace.name}</p>
                     {selectedRace.asi_desc && raceASIParser(selectedRace.asi_desc) ? (
                         <p>ASI Description: {raceASIParser(selectedRace.asi_desc)}</p>
-                            ) : null}
+                    ) : null}
                 </div>
             ) : (
                 <p>No race selected.</p>
