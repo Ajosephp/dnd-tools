@@ -2,32 +2,21 @@
 
 // Components
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@/components/ui/select';
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import useStore from '@/lib/store';
 
-// Classes and Interfaces
-import { Class } from '../types';
-
-// Api Call
-import { fetchDataFromOpen5e } from '../../lib/open5eApi.server';
 import RaceSelector from './RaceSelector';
 
-interface APIResponse {
-    count: number;
-    results: Class[];
-}
 
 export default function ClassSelector() {
-    const [classes, setClasses] = useState<Class[]>([]); // State to hold the classes
-    const [selectedClass, setSelectedClass] = useState<Class | null>(null);
+
+    const { classes, selectedClass, setSelectedClass, fetchClasses } = useStore();
 
     useEffect(() => {
         // Fetch the data asynchronously and update the state
-        fetchDataFromOpen5e('classes').then(data => {
-            setClasses(data.results);
-        }).catch(error => {
-            console.error('Failed to fetch classes from ClassSelector.tsx:', error);
-        });
-    }, []); // Empty dependency array means this effect runs once on mount
+        fetchClasses();
+        
+    }, [fetchClasses]);
 
     useEffect(() => {
         console.log("Current selected class:", selectedClass); // Debug current selected class state

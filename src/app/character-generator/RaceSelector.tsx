@@ -2,35 +2,29 @@
 
 // Components
 import React, { useState, useEffect } from 'react';
+import useStore from '@/lib/store';
 
 // Classes and Interfaces
-import { Class, Race } from '../types';
+import { Class } from '../types';
 
 // Utility Functions
 import { randomize } from '@/lib/utils';
 
-// Api Call
-import { fetchDataFromOpen5e } from '../../lib/open5eApi.server';
-
-interface APIResponse {
-    count: number;
-    results: Race[];
-}
 interface RaceSelectorProps {
     selectedClass: Class | null;  // Explicitly type selectedClass
 }
 
 export default function RaceSelector( {selectedClass}: RaceSelectorProps ) {
-    const [races, setRaces] = useState<Race[]>([]);
-    const [selectedRace, setSelectedRace] = useState<Race | null>(null);
+    
 
-    useEffect( () => {
-        fetchDataFromOpen5e('races').then(data => {
-            setRaces(data.results);
-        }).catch(error => {
-            console.error('Failed to fetch races from RaceSelector.tsx:', error);
-        });
-    }, []); // Empty dependency array means this effect runs once on mount
+    const { races, selectedRace, setSelectedRace, fetchRaces } = useStore();
+
+
+    useEffect(() => {
+        // Fetch the data asynchronously and update the state
+        fetchRaces();
+        
+    }, [fetchRaces]);
 
     useEffect( () => {
         if (selectedClass && races.length > 0) {
