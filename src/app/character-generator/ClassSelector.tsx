@@ -56,8 +56,7 @@ export default function ClassSelector() {
             </Select>
             {selectedClass ? (
                 <div className="description">
-                    <h3 className='mt-2'>Health at First Level:</h3>
-                    <p className='mt-2'>{selectedClass.hp_at_1st_level}</p>
+                    <p className='mt-2'>Health at First Level: {selectedClass.hp_at_1st_level}</p>
                 </div>
             ) : (
                 <p className='mt-2'>No class selected or class has no description.</p> // Debug no selection

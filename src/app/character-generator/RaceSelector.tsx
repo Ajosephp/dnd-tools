@@ -8,7 +8,7 @@ import useStore from '@/lib/store';
 import { Class } from '../types';
 
 // Utility Functions
-import { randomize } from '@/lib/utils';
+import { randomize, raceASIParser } from '@/lib/utils';
 
 interface RaceSelectorProps {
     selectedClass: Class | null;  // Explicitly type selectedClass
@@ -36,9 +36,10 @@ export default function RaceSelector( {selectedClass}: RaceSelectorProps ) {
         <div>
             {selectedRace ? (
                 <div>
-                    <h3>Race Selected:</h3>
-                    <p>{selectedRace.name}</p>
-                    <p>ASI Description: {selectedRace.asi_desc}</p>
+                    <p>Race Selected: {selectedRace.name}</p>
+                    {selectedRace.asi_desc && raceASIParser(selectedRace.asi_desc) ? (
+                        <p>ASI Description: {raceASIParser(selectedRace.asi_desc)}</p>
+                            ) : null}
                 </div>
             ) : (
                 <p>No race selected.</p>
