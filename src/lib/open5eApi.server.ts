@@ -6,6 +6,5 @@ export async function fetchDataFromOpen5e(file: string) {
     if (!response.ok) {
       throw new Error(`Failed to fetch ${file} from ${endpoint}`);
     }
-    console.log(response);
     return response.json();
 }
