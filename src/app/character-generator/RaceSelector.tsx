@@ -23,17 +23,17 @@ export default function RaceSelector() {
     }, [selectedClass, races]);
 
     return (
-        <div>
+        <>
             {selectedRace ? (
-                <div>
+                <>
                     <p>Race Selected: {selectedRace.name}</p>
                     {selectedRace.asi_desc && raceASIParser(selectedRace.asi_desc) ? (
                         <p>ASI Description: {raceASIParser(selectedRace.asi_desc)}</p>
                     ) : null}
-                </div>
+                </>
             ) : (
                 <p>No race selected.</p>
             )}
-        </div>
+        </>
     );
 }
