@@ -35,5 +35,5 @@ export interface Race {
     name: string;
     slug: string;
     asi_desc?: string;
-    asi?: AbilityScoreImprovement;
+    asi?: AbilityScoreImprovement[];
   }

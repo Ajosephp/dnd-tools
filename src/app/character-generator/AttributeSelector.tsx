@@ -3,6 +3,15 @@
 import React, { useEffect } from 'react';
 import useStore from "../../lib/store"
 import Title from '@/components/ui/title';
+import {
+    Table,
+    TableBody,
+    TableCaption,
+    TableCell,
+    TableHead,
+    TableHeader,
+    TableRow,
+  } from "@/components/ui/table"
 
 export default function AttributesComponent() {
     const attributes = useStore(state => state.attributes);
@@ -20,13 +29,22 @@ export default function AttributesComponent() {
     return (
         <>
             <Title text="Character Attributes" level={2} size="text-xl" className="mt-4" alignment='text-center' />
-            <ul>
+            <Table>
+            <TableHeader>
+                <TableRow>
                 {attributes.map((attr, index) => (
-                    <li key={index}>
-                        {attributeTitles[index]}: {attr}
-                    </li>
+                    <TableHead key={index} className="text-right">{attributeTitles[index]}</TableHead>
                 ))}
-            </ul>
+            </TableRow>
+            </TableHeader>
+            <TableBody>
+                <TableRow>
+                {attributes.map((attr, index) => (
+                    <TableCell key={index} className="text-right">{attr}</TableCell>
+                ))}
+                </TableRow>
+            </TableBody>
+            </Table>
         </>
     );
 }

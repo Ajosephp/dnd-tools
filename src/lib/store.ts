@@ -28,7 +28,7 @@ interface StoreState {
     setTitle: (title : string | undefined) => void;
 }
 
-const useStore = create<StoreState>((set) => ({
+const useStore = create<StoreState>((set, get) => ({
     classes: [],
     selectedClass: null,
     setClasses: (classes) => set({ classes }),
@@ -58,7 +58,8 @@ const useStore = create<StoreState>((set) => ({
     setAttributes: (newAttributes) => set({ attributes: newAttributes }),
     generateAttributes: () => {
         const { generateAllAttributes } = require('./utils'); // Delayed import to avoid circular dependencies
-        const newAttributes = generateAllAttributes();
+        const selectedRace = get().selectedRace;
+        const newAttributes = generateAllAttributes( selectedRace );
         set({ attributes: newAttributes });
     },
 
